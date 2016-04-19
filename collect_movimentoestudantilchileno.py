@@ -2,6 +2,7 @@ import tweepy
 import datetime
 import sys
 import time
+import json
 
 #
 # Verifica quais os limites ainda disponiveis para consumo da API do Twitter
@@ -98,7 +99,8 @@ def collect_user_timeline(user):
       # Na tela, imprime o resumo do tweet...
       print(user,i,status.id,status.created_at,status.text)
       # ... no arquivo, imprime o tweet (status) inteiro.
-      tweets_file.write(str(status._json)+"\n")
+      #tweets_file.write(str(status._json)+"\n")
+      tweets_file.write(json.dumps(status._json)+"\n")
 
       # Salva o ID do ultimo tweet coletado para ser usado 
       # na busca da proxima pagina de tweets.
@@ -116,13 +118,15 @@ def collect_user_timeline(user):
 # Manda buscr os tweets de cada uma das contas de tweet 
 # especificadas no array(?!) accounts.
 def main():
-  # accounts=['giselecraveiro', 'true_software', 'MarizaPorto2']
-  
-  #accounts = ['Cami_RojasV','Amarimatar','damian_ignacioB','ErvinCastillo','DanielGedda','SebastianM_ra','jorgerauld','SaschaHannig','gabriel_iturrac','CaroFigueroaCe','FEUAntofagasta','FeuachUACH','FEUAI_stgo','FEUANDES','feubb','FEUBO_OFICIAL','feuc','_FEUCEN','FEUCM2011','FEUCN','feucncqbo','FEUDD_stgo',
-  
-  # Deu pau no @Feupla
-  # tweepy.error.TweepError: Not authorized.
-  accounts = ['Feuls','Feupla','feusach','FEUSAM','feusmjmc','FeustSantiago','FEUTEM','feutfsm','feuv','feuvsantiago','la_fech','FEL_Stgo','FedFEMAE','FECUdeC','FEUDMVina','FEDEUNAP','FEUFRO','feummagallanes','FEDEPUDP','FepPedagogico','confech','creceruc','Estafados_CORFO','infestudiantes','Izquierda_Tuit','izqautonoma','u_informado','privmovilizadas','FELUCHILE','naupuc','jjcc_chile','mesup_Chile','SolidaridadUC','UNE_CHILE','Rdemocratica']
+  accounts = ['Cami_RojasV','Amarimatar','damian_ignacioB','ErvinCastillo',
+              'DanielGedda','SebastianM_ra','jorgerauld','SaschaHannig',
+              'gabriel_iturrac','CaroFigueroaCe','FEUAntofagasta','FeuachUACH',
+              'FEUAI_stgo','FEUANDES','feubb','feuc','_FEUCEN','FEUDD_stgo',
+              'Feuls','feusach','FEUSAM','feutfsm','feuv','la_fech','FECUdeC',
+              'FEUFRO','FEDEPUDP','confech','creceruc','infestudiantes','Izquierda_Tuit',
+              'izqautonoma','naupuc','jjcc_chile','UNE_CHILE','Rdemocratica',
+              'camila_vallejo','GiorgioJackson','gabrielboric','Karolcariola',
+              'EquipoJackson']
   for account in accounts:
     collect_user_timeline(account)
 
