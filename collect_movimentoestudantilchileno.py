@@ -20,6 +20,11 @@ def get_api_limits():
       print(t, "Limite para verificar os limites da API atingido. Vamos aguardar 60 seg...")
       sys.stdout.flush()
       time.sleep(60) 
+    except tweepy.error.TweepError as e:
+      t = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d%H%M')
+      print(t, e," Vamos aguardar 60 seg...")
+      sys.stdout.flush()
+      time.sleep(60)
 
   user_timeline_remaining = int(rate_limit['resources']['statuses']['/statuses/user_timeline']['remaining'])
   rate_limit_remaining = int(rate_limit['resources']['application']['/application/rate_limit_status']['remaining'])
@@ -129,6 +134,8 @@ def main():
               'EquipoJackson']
   for account in accounts:
     collect_user_timeline(account)
+
+  print("Coleta finalizada das contas", accounts)
 
 
 ########################
