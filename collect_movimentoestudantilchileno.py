@@ -9,6 +9,8 @@ import json
 #
 def get_api_limits():
 
+  print("Verificando limites da API...")
+
   # Pode ser que o programa ja se inicie com o limite de requisicoes estourado.
   rate_limit_available = False
   while not rate_limit_available:
@@ -41,6 +43,8 @@ def get_api_limits():
 # Obtem uma pagina de tweets de um usuario especifico
 #
 def get_tweets(user, max_id):
+
+  print("Recuperando 20 tweets de",user,"a partir do id",max_id,"...")
 
   limits = get_api_limits()
 
@@ -76,6 +80,8 @@ def get_tweets(user, max_id):
 # de um usuario especifico.
 def collect_user_timeline(user):
 
+  print("Iniciando busca de tweets de", user)
+
   # Busca toda a timeline de um usuario especifico, 
   # conforme documentacao em:
   # http://tweepy.readthedocs.org/en/v3.5.0/api.html#API.user_timeline
@@ -87,11 +93,11 @@ def collect_user_timeline(user):
   # Vamos contar a quantidade de tweets obtidos.
   i = 0
 
+  # Imprime a quantidade de elementos obtidos.
+  print(len(timeline),"tweets recuperados")
+
   # Enquanto houver elementos na timeline...
   while timeline:
-
-    # Imprime a quantidade de elementos obtidos.
-    print(len(timeline),"tweets recuperados")
 
     # A timeline eh composta por tweets.
     # O Twitter chama cada tweet de Status.
@@ -152,6 +158,7 @@ consumer_key="sua consumer_key"
 consumer_secret="sua consumer_secret"
 access_token="seu access_token"
 access_token_secret="seu access_token_secret"
+
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
